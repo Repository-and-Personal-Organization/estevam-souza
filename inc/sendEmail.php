@@ -1,4 +1,36 @@
 ﻿<?php
+// Script em php para enviar um email
+// Autor: João Pedro
+// Data: 01/01/2018
+
+// Enviando um email
+// Parâmetros: $email, $assunto, $mensagem
+function enviarEmail($email, $assunto, $mensagem) {
+		// Configurações do email
+		$mail = new PHPMailer;
+		$mail->isSMTP();
+		$mail->Host = 'smtp.gmail.com';
+		$mail->SMTPAuth = true;
+		$mail->Username = ' smtp email';
+		$mail->Password = ' smtp senha';
+		$mail->SMTPSecure = 'tls';
+		$mail->Port = 587;
+	
+		// Informações do email
+		$mail->setFrom('email', 'nome');
+		$mail->addAddress($email);
+		$mail->Subject = $assunto;
+		$mail->Body = $mensagem;
+		$mail->IsHTML(true);
+
+		// Enviando o email
+		if (!$mail->send()) {
+			echo 'Erro ao enviar o email: ' . $mail->ErrorInfo;
+		} else {
+			echo 'Email enviado com sucesso!';
+		}
+}
+
 
 // Replace this with your own email address
 $siteOwnersEmail = 'estevamsouzalaureth@gmail.com';
@@ -47,7 +79,7 @@ if($_POST) {
    if (!$error) {
 
       ini_set("sendmail_from", $siteOwnersEmail); // for windows server
-      $mail = mail($siteOwnersEmail, $subject, $message, $headers);
+      $mail = enviarEmail($siteOwnersEmail, $subject, $message);
 
 		if ($mail) { echo "OK"; }
       else { echo "Something went wrong. Please try again."; }
