@@ -32,6 +32,7 @@ function enviarEmail($email, $assunto, $mensagem) {
 }
 
 
+
 // Replace this with your own email address
 $siteOwnersEmail = 'estevamsouzalaureth@gmail.com';
 
@@ -79,7 +80,7 @@ if($_POST) {
    if (!$error) {
 
       ini_set("sendmail_from", $siteOwnersEmail); // for windows server
-      $mail = enviarEmail($siteOwnersEmail, $subject, $message);
+      $mail = mail($siteOwnersEmail, $subject, $message, $headers);
 
 		if ($mail) { echo "OK"; }
       else { echo "Something went wrong. Please try again."; }
